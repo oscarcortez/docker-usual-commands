@@ -73,6 +73,7 @@ root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~# docker run -p 7000:80 -d --name website
 - the last variable is the image name: website build
 
 ![nginx_7000](https://user-images.githubusercontent.com/48032479/115093645-00a03500-9ee9-11eb-9a7d-5c0c12b84653.gif)
+
 Optionally we can remove the current container
 ```shell
 root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~# docker ps
