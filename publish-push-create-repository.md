@@ -53,9 +53,10 @@ latest: digest: sha256:9726cdfda44f7245cddd036f1f11418ebd24000ac57f627e7e5f4e235
 root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:/home/website#
 ```
 
+![Image 2](https://user-images.githubusercontent.com/48032479/115098802-0bb28f80-9f00-11eb-88aa-88a3474ce8e6.gif)
 
 
-First we are going to remove all available images and containers
+remove all available images and containers to be sure
 ```shell
 root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:/home/website# docker rm $(docker ps -aq) -f
 ef5613acd594
@@ -88,4 +89,58 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:/home/website#
 ```
 
+execute this command: docker push oscarkortez/website:tagname
 
+![Image 4](https://user-images.githubusercontent.com/48032479/115098946-e5d9ba80-9f00-11eb-809f-c7f8be345193.gif)
+
+
+```shell
+root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~# docker images
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~#
+```
+
+Pull the current image
+```shell
+root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~# docker pull oscarkortez/website
+Using default tag: latest
+latest: Pulling from oscarkortez/website
+f7ec5a41d630: Pull complete
+aa1efa14b3bf: Pull complete
+b78b95af9b17: Pull complete
+c7d6bca2b8dc: Pull complete
+cf16cd8e71e0: Pull complete
+0241c68333ef: Pull complete
+50571d0eaf48: Pull complete
+Digest: sha256:9726cdfda44f7245cddd036f1f11418ebd24000ac57f627e7e5f4e2354a2c96a
+Status: Downloaded newer image for oscarkortez/website:latest
+docker.io/oscarkortez/website:latest
+root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~# 
+```
+
+review the current images:
+```shell
+root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~# docker images
+REPOSITORY            TAG       IMAGE ID       CREATED       SIZE
+oscarkortez/website   latest    64dd0fc98714   4 hours ago   133MB
+root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~#
+```
+
+we notice the container doesnt exist yet
+```shell
+root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~# docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+```
+run the container
+```shell
+root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~# docker run -d -p 3000:80 --name sitioweb oscarkortez/website
+571e9651f855376eb3fb57a6b2085b2ec0548ff11183eac9177ffd679fe58e6e
+```
+
+![Image 5](https://user-images.githubusercontent.com/48032479/115099466-06574400-9f04-11eb-9c28-5061ae5faf7c.gif)
+
+```shell
+root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~# docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS         PORTS                                   NAMES
+571e9651f855   oscarkortez/website   "/docker-entrypoint.…"   5 minutes ago   Up 5 minutes   0.0.0.0:3000->80/tcp, :::3000->80/tcp   sitioweb
+```
